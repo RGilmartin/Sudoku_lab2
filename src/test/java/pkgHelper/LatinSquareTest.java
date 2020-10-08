@@ -1,4 +1,4 @@
-package pkgGame;
+package pkgHelper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
