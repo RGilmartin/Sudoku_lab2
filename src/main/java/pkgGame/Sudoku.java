@@ -55,38 +55,38 @@ public class Sudoku extends LatinSquare {
 		return vals;
 	}
 	
-	public boolean hasDuplicates(int[] arr) {
-		boolean dupe = super.hasDuplicates(arr);
-		if (dupe) {
-			return dupe;
+	public boolean hasDuplicates() {
+		boolean dupe = false;
+		
+		for (int i = 0; i < iSize; i++) {
+			if (super.hasDuplicates(super.getRow(i)))
+				return true;
 		}
-		else {
-			for (int j = 0; j <= iSize; j++) {
-				int[] sortedArray = getRegion(j);
-				Arrays.sort(sortedArray);
-	
-				for (int i = 0; i < sortedArray.length - 1; i++) {
-					if (sortedArray[i] == sortedArray[i + 1]) {
-						dupe = true;
-						break;
-					}
+
+		for (int j = 0; j < iSize; j++) {
+			if (super.hasDuplicates(super.getColumn(j)))
+				return true;
+		}
+
+		for (int j = 0; j < iSize; j++) {
+			int[] sortedArray = getRegion(j);
+			Arrays.sort(sortedArray);
+
+			for (int i = 0; i < sortedArray.length - 1; i++) {
+				if (sortedArray[i] == sortedArray[i + 1]) {
+					dupe = true;
+					break;
 				}
 			}
-			return dupe;
 		}
+		return dupe;
 	}
 	
 	protected boolean isSudoku(){
 		if (!super.isLatinSquare()){
 			return false;
 		}
-		for(int i = 0; i < iSize; i++) {
-			int[] currentArray = this.getRegion(i);
-			if(hasDuplicates(currentArray)) {
-				return false;
-			}
-		}
-		return true;
+		return !this.hasDuplicates();
 	}
 	
 	protected boolean isPartialSudoku() {
@@ -95,7 +95,7 @@ public class Sudoku extends LatinSquare {
 		}
 		for(int i = 0; i < iSize; i++) {
 			int[] currentArray = this.getRegion(i);
-			if(hasDuplicates(RemoveZeros(currentArray))) {
+			if(super.hasDuplicates(RemoveZeros(currentArray))) {
 				return false;
 			}
 		}
