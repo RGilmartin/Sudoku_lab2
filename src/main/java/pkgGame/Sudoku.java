@@ -55,51 +55,11 @@ public class Sudoku extends LatinSquare {
 		return vals;
 	}
 	
-	public boolean hasDuplicates(int[] arr) {
-		boolean dupe = super.hasDuplicates(arr);
-		if (dupe) {
-			return dupe;
-		}
-		else {
-			for (int j = 0; j <= iSize; j++) {
-				int[] sortedArray = getRegion(j);
-				Arrays.sort(sortedArray);
-	
-				for (int i = 0; i < sortedArray.length - 1; i++) {
-					if (sortedArray[i] == sortedArray[i + 1]) {
-						dupe = true;
-						break;
-					}
-				}
-			}
-			return dupe;
-		}
-	}
-	
 	protected boolean isSudoku(){
 		if (!super.isLatinSquare()){
 			return false;
 		}
-		for(int i = 0; i < iSize; i++) {
-			int[] currentArray = this.getRegion(i);
-			if(hasDuplicates(currentArray)) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	protected boolean isPartialSudoku() {
-		if (!super.isLatinSquare()){
-			return false;
-		}
-		for(int i = 0; i < iSize; i++) {
-			int[] currentArray = this.getRegion(i);
-			if(hasDuplicates(RemoveZeros(currentArray))) {
-				return false;
-			}
-		}
-		return true;
+		return !this.hasDuplicates();
 	}
 	
 	public boolean isValidValueâ€‹(int iCol, int iRow, int iValue) {
