@@ -102,10 +102,15 @@ public class Sudoku extends LatinSquare {
 		return true;
 	}
 	
-	public boolean isValidValueâ€‹(int iCol, int iRow, int iValue) {
+	public boolean isValidValue​(int iCol, int iRow, int iValue) {
+		LatinSquare validLS = new LatinSquare();
+		validLS.getLatinSquare()[iRow][iCol] = iValue;
+		boolean valid = true;
 		
+		if(validLS.hasDuplicates(validLS.getRow(iRow)) || validLS.hasDuplicates(validLS.getColumn(iCol))) {
+			valid = false;
+		}
 		
-		
-		return true;
+		return valid;
 	}
 }
